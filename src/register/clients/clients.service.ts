@@ -10,11 +10,29 @@ export class ClientsService {
     private clientRepository: Repository<Clients>,
   ) {}
 
-  async save() {
-    const clients = new Clients();
-    clients.age = 29;
-    clients.firstName = 'Jefferson';
-    clients.lastName = 'Miranda';
-    await this.clientRepository.save(clients);
+  async save(clients: Clients) {
+    const cli = await this.clientRepository.findOne(clients);
+    if (cli) return cli;
+    return await this.clientRepository.save(clients);
+  }
+
+  async findOne(clients: Clients) {
+    const { id } = clients;
+
+    if (id === 0 || id === undefined) return [];
+
+    const register = await this.clientRepository.findOne(id);
+    if (!register) return [];
+
+    return register;
+  }
+
+  async list() {
+    return await this.clientRepository.find();
+  }
+
+  async delete(id: number) {
+    const client = await this.clientRepository.findOne(id);
+    return await this.clientRepository.remove(client);
   }
 }
