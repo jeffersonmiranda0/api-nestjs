@@ -6,5 +6,6 @@ import { RegisterService } from './register.service';
   imports: [ClientsModule],
   controllers: [RegisterController],
   providers: [RegisterService],
+  exports: [ClientsModule],
 })
 export class RegisterModule {}
