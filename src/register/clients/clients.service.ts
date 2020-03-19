@@ -11,7 +11,16 @@ export class ClientsService {
   ) {}
 
   async save(clients: Clients) {
-    const cli = await this.clientRepository.findOne(clients);
+    let { cpf } = clients;
+
+    const cli = await this.clientRepository.findOne({
+      where: [
+        {
+          cpf,
+        },
+      ],
+    });
+
     if (cli) return cli;
     return await this.clientRepository.save(clients);
   }

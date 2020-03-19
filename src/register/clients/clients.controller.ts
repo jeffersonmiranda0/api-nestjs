@@ -13,6 +13,7 @@ import { Clients } from './clients.entity';
 @Controller('clients')
 export class ClientsController {
   constructor(private readonly clients: ClientsService) {}
+
   @Post()
   save(@Body() clients: Clients) {
     return this.clients.save(clients);
